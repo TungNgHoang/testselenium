@@ -28,3 +28,15 @@ class TestSearch():
     self.driver.find_element(By.ID, "searchBook").send_keys("aaasđsdsd")
     self.driver.find_element(By.CSS_SELECTOR, ".btn-primary").click()
   
+  def test_empty_search(self):
+    self.driver.get("http://127.0.0.1:5500/testselenium/2.html")
+    self.driver.find_element(By.ID, "searchBook").send_keys("")
+    self.driver.find_element(By.CSS_SELECTOR, ".btn-primary").click()
+    assert "Không tìm thấy sách nào phù hợp." in self.driver.page_source
+
+  def test_special_character_search(self):
+    self.driver.get("http://127.0.0.1:5500/testselenium/2.html")
+    self.driver.find_element(By.ID, "searchBook").send_keys("@@@###")
+    self.driver.find_element(By.CSS_SELECTOR, ".btn-primary").click()
+    assert "Không tìm thấy sách nào phù hợp." in self.driver.page_source
+

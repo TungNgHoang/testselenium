@@ -28,4 +28,23 @@ class TestLogin():
     self.driver.find_element(By.ID, "username").click()
     self.driver.find_element(By.ID, "username").send_keys("admin")
     self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
+
+  def test_login_attempts(self):
+    self.driver.get("http://127.0.0.1:5500/testselenium/1.html")
+    self.driver.set_window_size(784, 835)
+    for _ in range(5):  # Thử 5 lần
+        self.driver.find_element(By.ID, "username").send_keys("admin@example.com")
+        self.driver.find_element(By.ID, "password").send_keys("wrongpassword")
+        self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
+        assert "Sai tên đăng nhập hoặc mật khẩu" in self.driver.switch_to.alert.text
+        self.driver.switch_to.alert.accept()
   
+  def test_invalid_account(self):
+    self.driver.get("http://127.0.0.1:5500/testselenium/1.html")
+    self.driver.set_window_size(784, 835)
+    self.driver.find_element(By.ID, "username").send_keys("nonexistent@example.com")
+    self.driver.find_element(By.ID, "password").send_keys("password123")
+    self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
+    assert "Sai tên đăng nhập hoặc mật khẩu" in self.driver.switch_to.alert.text
+
+
