@@ -10,7 +10,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-class TestLogin():
+class TestSearch():
   def setup_method(self, method):
     self.driver = webdriver.Chrome()
     self.vars = {}
@@ -18,14 +18,13 @@ class TestLogin():
   def teardown_method(self, method):
     self.driver.quit()
   
-  def test_login(self):
-    self.driver.get("http://127.0.0.1:5500/testselenium/3.html /testselenium/1.html")
+  def test_search(self):
+    self.driver.get("http://127.0.0.1:5500/testselenium/2.html")
     self.driver.set_window_size(784, 835)
-    self.driver.find_element(By.ID, "username").click()
-    self.driver.find_element(By.ID, "username").send_keys("admi1")
-    self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
-    assert self.driver.switch_to.alert.text == "Invalid username or password!"
-    self.driver.find_element(By.ID, "username").click()
-    self.driver.find_element(By.ID, "username").send_keys("admin")
-    self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
+    self.driver.find_element(By.ID, "searchBook").click()
+    self.driver.find_element(By.ID, "searchBook").send_keys("aaa")
+    self.driver.find_element(By.CSS_SELECTOR, ".btn-primary").click()
+    self.driver.find_element(By.ID, "searchBook").click()
+    self.driver.find_element(By.ID, "searchBook").send_keys("aaasđsdsd")
+    self.driver.find_element(By.CSS_SELECTOR, ".btn-primary").click()
   
