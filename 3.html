@@ -10,41 +10,41 @@
     <div class="container mt-5">
         <h2 class="text-center mb-4">Add New Book</h2>
         <form onsubmit="addBook(event)">
-            <div class="mb-3">
-                <label for="bookName" class="form-label">Book Name</label>
-                <input type="text" class="form-control" id="bookName" placeholder="Enter book name" required>
-            </div>
-            <div class="mb-3">
-                <label for="author" class="form-label">Author</label>
-                <input type="text" class="form-control" id="author" placeholder="Enter author name" required>
-            </div>
-            <div class="mb-3">
-                <label for="quantity" class="form-label">Quantity</label>
-                <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" required>
-            </div>
-            <button type="submit" class="btn btn-success w-100">Add Book</button>
+            <fieldset class="border p-3">
+                <legend class="w-auto px-2">Book Information</legend>
+                <div class="mb-3">
+                    <label for="bookName" class="form-label">Book Name</label>
+                    <input type="text" class="form-control" id="bookName" placeholder="Enter book name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="author" class="form-label">Author</label>
+                    <input type="text" class="form-control" id="author" placeholder="Enter author name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" required>
+                </div>
+            </fieldset>
+            <button type="submit" class="btn btn-success w-100 mt-3">Add Book</button>
         </form>
     </div>
     <script>
         function addBook(event) {
             event.preventDefault();
-    
-            // Lấy thông tin từ form
-            const bookName = document.getElementById('bookName').value;
-            const author = document.getElementById('author').value;
-            const quantity = document.getElementById('quantity').value;
-    
-            // Lấy danh sách sách từ localStorage (nếu có)
+            const bookName = document.getElementById('bookName').value.trim();
+            const author = document.getElementById('author').value.trim();
+            const quantity = parseInt(document.getElementById('quantity').value, 10);
+
+            if (!bookName || !author || isNaN(quantity) || quantity <= 0) {
+                alert('Vui lòng nhập thông tin hợp lệ!');
+                return;
+            }
+
             const books = JSON.parse(localStorage.getItem('books')) || [];
-    
-            // Thêm sách mới vào danh sách
-            books.push({ name: bookName, author: author, quantity: parseInt(quantity) });
-    
-            // Lưu lại danh sách vào localStorage
+            books.push({ name: bookName, author, quantity });
             localStorage.setItem('books', JSON.stringify(books));
-    
-            alert('Book added successfully!');
-            window.location.href = '/2.html'; // Chuyển hướng đến trang danh sách sách
+            alert('Sách đã được thêm thành công!');
+            window.location.href = '2.html';
         }
     </script>
 </body>
